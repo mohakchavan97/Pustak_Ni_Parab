@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>Issues_Background</servlet-name>
+        <servlet-class>Issues_Backend</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Return_Backend</servlet-name>
+        <servlet-class>Return_Backend</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Return_Backend_2</servlet-name>
+        <servlet-class>Return_Backend_2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Search_Book_Backend</servlet-name>
+        <servlet-class>Search_Book_Backend</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Issues_Background</servlet-name>
+        <url-pattern>/Issues_Background</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Return_Backend</servlet-name>
+        <url-pattern>/Return_Backend</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Return_Backend_2</servlet-name>
+        <url-pattern>/Return_Backend_2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search_Book_Backend</servlet-name>
+        <url-pattern>/Search_Book_Backend</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            0
+        </session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>Issues.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>
