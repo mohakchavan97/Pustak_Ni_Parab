@@ -1,10 +1,9 @@
 <%-- 
-    Document   : Issues
-    Created on : 31 Jul, 2018, 2:38:10 PM
+    Document   : Names
+    Created on : 29 Sep, 2018, 7:58:18 PM
     Author     : Mohak Chavan
 --%>
 
-<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -14,30 +13,30 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Issues</title>
-        <script type="text/javascript" src="Issues.js">
+        <title>Names</title>
+        <script type="text/javascript" src="Names.js">
         </script>
     </head>
     <body>
 
         <%
-            int ser_no = 0,i=1;
+            int ser_no = 0;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
                 Statement st = con.createStatement();
 
-                String sql = "SELECT * FROM `issues`";
+                String sql = "SELECT * FROM `names`";
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.next()) {
                     rs.last();
                     ser_no = rs.getInt(1);
+                    rs.close();
                 }
-                rs.close();
                 st.close();
                 con.close();
             } catch (Exception ex) {
-                out.println("Exception Caught");
+                out.println("Exception Caught " + ex.toString());
             }
         %>
 
@@ -49,21 +48,21 @@
 
             <span style="margin-right: 2%; font-size: larger; font-weight: bold;">LINKS:</span>
 
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px; border-style: none; text-decoration: underline; background-color: white;" disabled><a  style="font-size: medium; color: black;">Issues</a></button>
+            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Issues.jsp" style="text-decoration: none; font-size: medium; color: black;">Issues</a></button>
             <strong>|</strong>
             <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Return.jsp" style="text-decoration: none; font-size: medium; color: black;">Return</a></button>
             <strong>|</strong>
             <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Search_Book.jsp"  style="text-decoration: none; font-size: medium; color: black;">Search By Book Name</a></button>
             <strong>|</strong>
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Names.jsp" style="text-decoration: none; font-size: medium; color: black;">Names</a></button>
+            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px; border-style: none; text-decoration: underline; background-color: white;" disabled><a  style="font-size: medium; color: black;">Names</a></button>
 
         </div>
 
-        <div align="center" id="record_data" style="background-color: bisque; margin-top: 10%;">
+        <div align="center" id="record_names" style="background-color: bisque; margin-top: 10%;">
 
-            <form id="issue" action="./Issues_Background" onsubmit="return validation()" method="post">
+            <form id="name" action="./Names_Backend" onsubmit="return validation()" method="post">
                 <table style="margin-top: 5%;"  cellpadding="3%">
-                    <caption style="margin-top: 2%; margin-bottom: 1%; font-weight: bold; font-size: larger">ISSUES</caption>
+                    <caption style="margin-top: 2%; margin-bottom: 1%; font-weight: bold; font-size: larger">NAMES</caption>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Serial No:</th>
                         <td align="left" style="margin-left: 2%;">
@@ -71,45 +70,54 @@
                         </td>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Book Name:</th>
+                        <th colspan="2"><hr></th>
+                    </tr>
+                    <tr>
+                        <th align="left">Full Name</th>
+                    </tr>
+                    <tr>
+                        <th align="right" style="margin-right: 2%;">First Name:</th>
                         <td align="left" style="margin-left: 2%;">
-                            <input type="text" name="book_name" autofocus required style="padding: 2%;"/>
+                            <input type="text" name="f_name" autofocus required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Price:</th>
+                        <th align="right" style="margin-right: 2%;">Last Name:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="number" name="price" style="padding: 2%;"/>
+                            <input type="text" name="l_name" autofocus required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Author/Publication:</th>
+                        <th colspan="2"><hr></th>
+                    </tr>
+                    <tr>
+                        <th align="left">Address</th>
+                    </tr>
+                    <tr>
+                        <th align="right" style="margin-right: 2%;">Block/Flat No.:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="text" name="auth_pub" style="padding: 2%;"/>
+                            <input type="text" name="blk_flat" style="padding: 2%;" required/>
                         </td>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Issuer Name:</th>
+                        <th align="right" style="margin-right: 2%;">Street Name:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="text" name="issuer_name" required style="padding: 2%;"/>
+                            <input type="text" name="strt_name" required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Issuer Address:</th>
+                        <th align="right" style="margin-right: 2%;">Locality/Area:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="text" name="issuer_add" style="padding: 2%;"/>
+                            <input type="text" name="local_area" value="Isanpur" required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Issuer Contact No:</th>
-                        <td align="left" style="margin-left: 2%">
-                            <input type="number" name="issuer_cont" id="issuer_cont" style="padding: 2%;"/>
-                        </td>
+                        <th colspan="2"><hr></th>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Issue Date:</th>
+                        <th align="right" style="margin-right: 2%;">Contact No:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="date" name="issue_date" required style="padding: 2%;"/>
+                            <input type="number" name="cont_no" id="cont_no" required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
@@ -135,7 +143,6 @@
             </form>
 
         </div>
-
 
     </body>
 </html>
