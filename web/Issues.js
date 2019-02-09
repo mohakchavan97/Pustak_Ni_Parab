@@ -4,6 +4,17 @@
  * and open the template in the editor.
  */
 
+function get2d(num) {
+    return (num.toString().length < 2 ? "0" + num : num).toString();
+}
+
+function ins_date() {
+    n = new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    document.getElementById("issue_date").value = get2d(d) + "-" + get2d(m) + "-" + y;
+}
 
 function validation() {
     var mob = document.getElementById('issuer_cont');

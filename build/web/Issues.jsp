@@ -21,7 +21,7 @@
     <body>
 
         <%
-            int ser_no = 0,i=1;
+            int ser_no = 0, i = 1;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
@@ -49,13 +49,13 @@
 
             <span style="margin-right: 2%; font-size: larger; font-weight: bold;">LINKS:</span>
 
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px; border-style: none; text-decoration: underline; background-color: white;" disabled><a  style="font-size: medium; color: black;">Issues</a></button>
+            <a style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; border-style: none; text-decoration: underline; background-color: white; font-size: medium; color: black;">Issues</button></a>
             <strong>|</strong>
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Return.jsp" style="text-decoration: none; font-size: medium; color: black;">Return</a></button>
+            <a href="./Return.jsp" style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; font-size: medium;  color: black;">Return</button></a>
             <strong>|</strong>
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Search_Book.jsp"  style="text-decoration: none; font-size: medium; color: black;">Search By Book Name</a></button>
+            <a href="./Search_Book.jsp" style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; font-size: medium; color: black;">Search By Book Name</button></a>
             <strong>|</strong>
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Names.jsp" style="text-decoration: none; font-size: medium; color: black;">Names</a></button>
+            <a href="./Names.jsp" style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; font-size: medium; color: black;">Names</button></a>
 
         </div>
 
@@ -69,6 +69,9 @@
                         <td align="left" style="margin-left: 2%;">
                             <input type="text" style="background-color: #cccccc; padding: 2%; text-align: center; font-size: medium;" readonly name="serial_no" value="<%=(ser_no + 1)%>"/>
                         </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2"><hr></th>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Book Name:</th>
@@ -86,6 +89,36 @@
                         <th align="right" style="margin-right: 2%;">Author/Publication:</th>
                         <td align="left" style="margin-left: 2%">
                             <input type="text" name="auth_pub" style="padding: 2%;"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2"><hr></th>
+                    </tr>
+                    <tr>
+                        <th align="right" style="margin-right: 2%;">Select Name:</th>
+                        <td align="left" style="margin-left: 2%">
+                            <select name="sel_name" style="padding: 2%;">
+                                <%
+                                    try {
+                                        Class.forName("com.mysql.jdbc.Driver");
+                                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
+                                        Statement st = con.createStatement();
+
+                                        String sql = "SELECT * FROM `names`";
+                                        ResultSet rs = st.executeQuery(sql);
+                                        if (rs.next()) {
+                                            do {
+                                                out.println("<option value=\"" + rs.getInt(1) + "\">" + rs.getInt(1) + "</option>");
+                                            } while (rs.next());
+                                        }
+
+                                    } catch (Exception ex) {
+
+                                    }
+
+                                %>
+                                <option value="other">Other</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>
@@ -107,9 +140,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <th colspan="2"><hr></th>
+                    </tr>
+                    <tr>
                         <th align="right" style="margin-right: 2%;">Issue Date:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="date" name="issue_date" required style="padding: 2%;"/>
+                            <input type="text" onclick="ins_date()" name="issue_date" id="issue_date" required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
@@ -119,8 +155,7 @@
                     </tr>
                     <tr>
                         <td colspan="2" align="center" style="color: red;">
-                            <%
-                                String data = null;
+                            <%                                String data = null;
                                 try {
                                     data = (request.getAttribute("data")).toString();
                                 } catch (Exception ex) {
@@ -133,7 +168,11 @@
                     </tr>
                 </table>
             </form>
-
+            <%
+                StringBuffer s=request.getRequestURL();
+                out.println(s.replace(s.lastIndexOf("/"),s.length() ,"hello"));
+//                request.getRequestURL().r
+            %>
         </div>
 
 

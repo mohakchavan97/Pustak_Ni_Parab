@@ -3,6 +3,7 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.util.ArrayList;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
@@ -52,6 +53,7 @@ public final class Issues_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("\n");
       out.write("\n");
+      out.write("\n");
       out.write("<!DOCTYPE html>\n");
       out.write("<html>\n");
       out.write("    <head>\n");
@@ -64,7 +66,7 @@ public final class Issues_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("        ");
 
-            int ser_no = 0;
+            int ser_no = 0, i = 1;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
@@ -72,8 +74,10 @@ public final class Issues_jsp extends org.apache.jasper.runtime.HttpJspBase
 
                 String sql = "SELECT * FROM `issues`";
                 ResultSet rs = st.executeQuery(sql);
-                rs.last();
-                ser_no = rs.getInt(1);
+                if (rs.next()) {
+                    rs.last();
+                    ser_no = rs.getInt(1);
+                }
                 rs.close();
                 st.close();
                 con.close();
@@ -97,7 +101,7 @@ public final class Issues_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("            <strong>|</strong>\n");
       out.write("            <button style=\"margin-left: 1%; margin-right: 1%; border-radius: 8px;\"><a href=\"./Search_Book.jsp\"  style=\"text-decoration: none; font-size: medium; color: black;\">Search By Book Name</a></button>\n");
       out.write("            <strong>|</strong>\n");
-      out.write("            <button style=\"margin-left: 1%; margin-right: 1%; border-radius: 8px;\"><a href=\"\" onclick=\"return comingsoon()\" style=\"text-decoration: none; font-size: medium; color: black;\">Names</a></button>\n");
+      out.write("            <button style=\"margin-left: 1%; margin-right: 1%; border-radius: 8px;\"><a href=\"./Names.jsp\" style=\"text-decoration: none; font-size: medium; color: black;\">Names</a></button>\n");
       out.write("\n");
       out.write("        </div>\n");
       out.write("\n");
@@ -115,6 +119,9 @@ public final class Issues_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        </td>\n");
       out.write("                    </tr>\n");
       out.write("                    <tr>\n");
+      out.write("                        <th colspan=\"2\"><hr></th>\n");
+      out.write("                    </tr>\n");
+      out.write("                    <tr>\n");
       out.write("                        <th align=\"right\" style=\"margin-right: 2%;\">Book Name:</th>\n");
       out.write("                        <td align=\"left\" style=\"margin-left: 2%;\">\n");
       out.write("                            <input type=\"text\" name=\"book_name\" autofocus required style=\"padding: 2%;\"/>\n");
@@ -130,6 +137,38 @@ public final class Issues_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        <th align=\"right\" style=\"margin-right: 2%;\">Author/Publication:</th>\n");
       out.write("                        <td align=\"left\" style=\"margin-left: 2%\">\n");
       out.write("                            <input type=\"text\" name=\"auth_pub\" style=\"padding: 2%;\"/>\n");
+      out.write("                        </td>\n");
+      out.write("                    </tr>\n");
+      out.write("                    <tr>\n");
+      out.write("                        <th colspan=\"2\"><hr></th>\n");
+      out.write("                    </tr>\n");
+      out.write("                    <tr>\n");
+      out.write("                        <th align=\"right\" style=\"margin-right: 2%;\">Select Name:</th>\n");
+      out.write("                        <td align=\"left\" style=\"margin-left: 2%\">\n");
+      out.write("                            <select name=\"sel_name\" style=\"padding: 2%;\">\n");
+      out.write("                                ");
+
+                                    try {
+                                        Class.forName("com.mysql.jdbc.Driver");
+                                        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
+                                        Statement st = con.createStatement();
+
+                                        String sql = "SELECT * FROM `names`";
+                                        ResultSet rs = st.executeQuery(sql);
+                                        if (rs.next()) {
+                                            do {
+                                                out.println("<option value=\"" + rs.getInt(1) + "\">" + rs.getInt(1) + "</option>");
+                                            } while (rs.next());
+                                        }
+
+                                    } catch (Exception ex) {
+
+                                    }
+
+                                
+      out.write("\n");
+      out.write("                                <option value=\"other\">Other</option>\n");
+      out.write("                            </select>\n");
       out.write("                        </td>\n");
       out.write("                    </tr>\n");
       out.write("                    <tr>\n");
@@ -151,9 +190,12 @@ public final class Issues_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                        </td>\n");
       out.write("                    </tr>\n");
       out.write("                    <tr>\n");
+      out.write("                        <th colspan=\"2\"><hr></th>\n");
+      out.write("                    </tr>\n");
+      out.write("                    <tr>\n");
       out.write("                        <th align=\"right\" style=\"margin-right: 2%;\">Issue Date:</th>\n");
       out.write("                        <td align=\"left\" style=\"margin-left: 2%\">\n");
-      out.write("                            <input type=\"date\" name=\"issue_date\" required style=\"padding: 2%;\"/>\n");
+      out.write("                            <input type=\"text\" onclick=\"ins_date()\" name=\"issue_date\" id=\"issue_date\" required style=\"padding: 2%;\"/>\n");
       out.write("                        </td>\n");
       out.write("                    </tr>\n");
       out.write("                    <tr>\n");

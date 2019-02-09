@@ -35,6 +35,7 @@ public class Return_Backend extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        StringBuffer sb=request.getRequestURL();
         RequestDispatcher rd_return = request.getRequestDispatcher("./Return.jsp");
 
         try (PrintWriter out = response.getWriter()) {
@@ -46,7 +47,9 @@ public class Return_Backend extends HttpServlet {
 
             out.println("<script type=\"text/javascript\">"
                     + "function goback(){"
-                    + "location.href=\"http://localhost:8084/Pustak_Ni_Parab/Return.jsp\";"
+                    + "location.href=\"./Return.jsp\";"
+//                    + "location.href=\"http://localhost:8084/Pustak_Ni_Parab/Return.jsp\";"
+//                    + "location.href=\""+sb.replace(sb.lastIndexOf("/"), sb.length(), "/Return.jsp\";")
                     + "}"
                     + "</script>");
 

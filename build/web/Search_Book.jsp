@@ -21,14 +21,23 @@
 
             <span style="margin-right: 2%; font-size: larger; font-weight: bold;">LINKS:</span>
 
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Issues.jsp"  style="text-decoration: none; font-size: medium; color: black; margin: 5px;">Issues</a></button>
-            <strong>|</strong>
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Return.jsp"  style="text-decoration: none; font-size: medium; color: black; margin: 5px;">Return</a></button>
-            <strong>|</strong>
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px; border-style: none; text-decoration: underline; background-color: white;" disabled><a  style="font-size: medium; color: black; margin: 5px;">Search By Book Name</a></button>
-            <strong>|</strong>
-            <button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Names.jsp" style="text-decoration: none; font-size: medium; color: black; margin: 5px;">Names</a></button>
+            <!--<button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Issues.jsp"  style="text-decoration: none; font-size: medium; color: black; margin: 5px;">Issues</a></button>-->
+            <!--<strong>|</strong>-->
+            <!--<button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Return.jsp"  style="text-decoration: none; font-size: medium; color: black; margin: 5px;">Return</a></button>-->
+            <!--<strong>|</strong>-->
+            <!--<button style="margin-left: 1%; margin-right: 1%; border-radius: 8px; border-style: none; text-decoration: underline; background-color: white;" disabled><a  style="font-size: medium; color: black; margin: 5px;">Search By Book Name</a></button>-->
+            <!--<strong>|</strong>-->
+            <!--<button style="margin-left: 1%; margin-right: 1%; border-radius: 8px;"><a href="./Names.jsp" style="text-decoration: none; font-size: medium; color: black; margin: 5px;">Names</a></button>-->
 
+            
+            <a href="./Issues.jsp" style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; font-size: medium; color: black;">Issues</button></a>
+            <strong>|</strong>
+            <a href="./Return.jsp" style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; font-size: medium;  color: black;">Return</button></a>
+            <strong>|</strong>
+            <a style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; background-color: white; border-style: none; text-decoration: underline; font-size: medium; color: black;">Search By Book Name</button></a>
+            <strong>|</strong>
+            <a href="./Names.jsp" style="margin-left: 1%; margin-right: 1%;"><button style="border-radius: 8px; font-size: medium; color: black;">Names</button></a>
+            
         </div>
         
         <div align="center" id="search_books" style="background-color: bisque; margin-top: 10%;">
