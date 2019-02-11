@@ -36,7 +36,7 @@ public class Names_Backend_2 extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher rd_return = request.getRequestDispatcher("./Names.jsp");
-
+        
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -50,23 +50,23 @@ public class Names_Backend_2 extends HttpServlet {
             out.println("        <div id=\"header\" style=\"position: fixed; top: 0.5%; width: 100%;\">\n"
                     + "            <h1 style=\"color: blue; font-family: cursive;\" align=\"center\">Pustak Ni Parab</h1>\n"
                     + "        </div>");
-
+            
             String sql;
-
+            
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
                 Statement st = con.createStatement();
-
+                
                 sql = "SELECT `Serial_No`, `First_Name`, `Last_Name`, `Block/Flat_No`, `Street_Name`, `Locality/Area`, `Contact_No` FROM `names`";
-
+                
                 ResultSet rs = st.executeQuery(sql);
                 if (rs.first()) {
-
+                    
                     out.println("<div align=\"center\" id=\"names_2\" style=\"background-color: bisque; margin-top: 7%;\">\n"
                             + "\n"
-                            + "            <form id=\"names_2\" action=\"./Names.jsp\" method=\"post\">\n"
-                            + "                <table style=\"margin-top: 5%; width: 98%; border-width: thin;\" border=\"0\">\n"
+                            + "            <form id=\"names_2\" action=\"./Names.jsp\" method=\"get\">\n"
+                            + "                <table style=\"margin-top: 5%; width: 98%; border-width: thin;\" >\n"
                             + "                    <tr>\n"
                             + "                        <th align=\"center\">Serial No</th>\n"
                             + "                        <th align=\"center\" colspan=\"2\">Full Name</th>\n"
@@ -75,30 +75,30 @@ public class Names_Backend_2 extends HttpServlet {
                             + "                        <th align=\"center\">Locality/Area</th>\n"
                             + "                        <th align=\"center\">Contact No</th>\n"
                             + "                    </tr>");
-
+                    
                     do {
+                        out.println("<tr><th colspan=\"7\"><hr></th></tr>");
                         out.println("<tr>");
                         for (int i = 1; i <= 7; i++) {
-                            out.println("<td ");
-
+                            
                             switch (i) {
                                 case 2:
-                                    out.println("align=\"right\"> ");
+                                    out.print("<td align=\"left\" colspan=\"2\">");
+                                    out.println(rs.getString(i) + " " + rs.getString(i + 1) + "</td>");
                                     break;
                                 case 3:
-                                    out.println("align=\"left\"> ");
-                                    break;
+                                    continue;
                                 default:
-                                    out.println("align=\"center\">");
+                                    out.print("<td align=\"center\">");
+                                    out.println(rs.getString(i) + "</td>");
                                     break;
                             }
-
-                            out.println(rs.getString(i) + "</td>");
+                            
                         }
                         out.println("</tr>");
                     } while (rs.next());
-
-                     out.println("<td colspan=\"7\" align=\"center\" style=\"height: 40px\"><input type=\"submit\" value=\"OK\" style=\"margin: 0.5%; border-radius: 10px; font-weight: bold; font-size: medium; color: green;\"/></td>"
+                    
+                    out.println("<tr><td colspan=\"7\" align=\"center\" style=\"height: 40px\"><input type=\"submit\" value=\"OK\" style=\"margin: 0.5%; border-radius: 10px; font-weight: bold; font-size: medium; color: green;\"/></td>"
                             + "</tr>");
                     
                     out.println("</table></form>");
@@ -106,11 +106,11 @@ public class Names_Backend_2 extends HttpServlet {
                     request.setAttribute("data", "No Record Found");
                     rd_return.forward(request, response);
                 }
-
+                
             } catch (IOException | ClassNotFoundException | SQLException | ServletException ex) {
                 out.println("Exception Caught");
             }
-
+            out.println("</div>");
             out.println("</body>");
             out.println("</html>");
         }
