@@ -69,7 +69,7 @@ public class Return_Backend extends HttpServlet {
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
                 Statement st = con.createStatement();
 
-                sql = "SELECT `Serial_No`, `Book_Name`, `Price`, `Author/Publication`, `Issuer _Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `Returned` FROM `issues` WHERE `Serial_No` = " + serial;
+                sql = "SELECT `Serial_No`, `Book_Name`, `Price`, `Author/Publication`, `Issuer_Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `Returned` FROM `issues` WHERE `Serial_No` = " + serial;
 
                 boolean status = false;
                 ResultSet rs = st.executeQuery(sql);

@@ -60,7 +60,7 @@ public class Search_Book_Backend extends HttpServlet {
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
                 Statement st = con.createStatement();
 
-                sql = "SELECT `Serial_No`, `Book_Name`, `Price`, `Author/Publication`, `Issuer _Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `Returned` FROM `issues` WHERE `Book_Name` LIKE '%" + book_name + "%'";
+                sql = "SELECT `Serial_No`, `Book_Name`, `Price`, `Author/Publication`, `Issuer_Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `Returned` FROM `issues` WHERE `Book_Name` LIKE '%" + book_name + "%'";
 
                 ResultSet rs = st.executeQuery(sql);
 
@@ -104,7 +104,7 @@ public class Search_Book_Backend extends HttpServlet {
                 }
 
             } catch (ClassNotFoundException | SQLException ex) {
-                out.println("Exception Caught");
+                out.println(ex.toString());
 //                Logger.getLogger(Search_Book_Backend.class.getName()).log(Level.SEVERE, null, ex);
             }
 
