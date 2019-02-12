@@ -21,7 +21,9 @@
     <body>
 
         <%
-            int ser_no = 0, i = 1;
+            int ser_no = 0, i = 1, id;
+            String bk_nm, pr, ap;
+            boolean getid = false;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/pustak_ni_parab", "root", "");
@@ -38,6 +40,27 @@
                 con.close();
             } catch (Exception ex) {
                 out.println("Exception Caught");
+            }
+            try {
+                id = Integer.parseInt(request.getParameter("id"));
+            } catch (Exception ex) {
+                id = 0;
+                getid = false;
+            }
+            try {
+                bk_nm = request.getParameter("bk_nm").toString();
+            } catch (Exception ex) {
+                bk_nm = "";
+            }
+            try {
+                pr = request.getParameter("pr").toString();
+            } catch (Exception ex) {
+                pr = "";
+            }
+            try {
+                ap = request.getParameter("ap").toString();
+            } catch (Exception ex) {
+                ap = "";
             }
         %>
 
@@ -76,28 +99,52 @@
                     <tr>
                         <th align="right" style="margin-right: 2%;">Book Name:</th>
                         <td align="left" style="margin-left: 2%;">
-                            <input type="text" name="book_name" autofocus required style="padding: 2%;"/>
+                            <input type="text" name="book_name" id="book_name"
+                                   <%
+                                       if (!(bk_nm.isEmpty())) {
+                                           out.print(" value=\"" + bk_nm.trim().toString() + "\"");
+                                       }
+                                   %>
+                                   autofocus required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Price:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="number" name="price" style="padding: 2%;"/>
+                            <input type="number" name="price" id="price"
+                                   <%
+                                       if (!(pr.isEmpty())) {
+                                           out.print(" value=\"" + pr.trim().toString() + "\"");
+                                       }
+                                   %>
+                                   style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Author/Publication:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="text" name="auth_pub" style="padding: 2%;"/>
+                            <input type="text" name="auth_pub" id="auth_pub"
+                                   <%
+                                       if (!(ap.isEmpty())) {
+                                           out.print(" value=\"" + ap.trim().toString() + "\"");
+                                       }
+                                   %>
+                                   style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
                         <th colspan="2"><hr></th>
                     </tr>
                     <tr>
-                        <th align="right" style="margin-right: 2%;">Select Name:</th>
+                        <th align="right" style="margin-right: 2%;">Select ID:</th>
                         <td align="left" style="margin-left: 2%">
-                            <select name="sel_name" style="padding: 2%;">
+                            <select name="sel_name" style="padding: 2%;" onchange="getname()" id="sel_name">
+                                <option value="0_0"
+                                        <%                                            if (id == 0) {
+                                                out.print(" selected");
+                                            }
+                                        %>
+                                        >Select Name</option>
                                 <%
                                     try {
                                         Class.forName("com.mysql.jdbc.Driver");
@@ -108,35 +155,68 @@
                                         ResultSet rs = st.executeQuery(sql);
                                         if (rs.next()) {
                                             do {
-                                                out.println("<option value=\"" + rs.getInt(1) + "\">" + rs.getInt(1) + "</option>");
+                                                out.print("<option value=\"" + rs.getInt(1) + "\"");
+                                                if (id == rs.getInt(1)) {
+                                                    out.print(" selected");
+                                                    getid = true;
+                                                }
+                                                out.println(">" + rs.getInt(1) + "</option>");
                                             } while (rs.next());
                                         }
 
-                                    } catch (Exception ex) {
-
-                                    }
-
                                 %>
-                                <option value="other">Other</option>
+                                <option value="-2"
+                                        <%if (id == -2) {
+                                                out.print(" selected");
+                                            }
+                                        %>
+                                        >Other</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Issuer Name:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="text" name="issuer_name" required style="padding: 2%;"/>
+                            <input type="text" name="issuer_name"
+                                   <%
+                                       sql = "SELECT * FROM `names` WHERE `Serial_No` = " + id;
+                                       rs = st.executeQuery(sql);
+                                       rs.next();
+
+                                       if (getid) {
+                                           out.print(" value=\"" + rs.getString(2) + " " + rs.getString(3) + "\"");
+                                       }
+                                   %>
+                                   required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Issuer Address:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="text" name="issuer_add" style="padding: 2%;"/>
+                            <input type="text" name="issuer_add"
+                                   <%
+                                       if (getid) {
+                                           out.print(" value=\"" + rs.getString(4) + ", " + rs.getString(5) + ", " + rs.getString(6) + "\"");
+                                       }
+                                   %>
+                                   style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Issuer Contact No:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="number" name="issuer_cont" id="issuer_cont" style="padding: 2%;"/>
+                            <input type="number" name="issuer_cont" id="issuer_cont"
+                                   <%
+                                       if (getid) {
+                                           out.print(" value=\"" + rs.getString(7) + "\"");
+                                       }
+                                   %>
+                                   style="padding: 2%;"/>
+                            <%
+                                } catch (Exception ex) {
+                                    out.println(ex.toString());
+                                }
+                            %>
                         </td>
                     </tr>
                     <tr>
@@ -145,7 +225,7 @@
                     <tr>
                         <th align="right" style="margin-right: 2%;">Issue Date:</th>
                         <td align="left" style="margin-left: 2%">
-                            <input type="text" onclick="ins_date()" name="issue_date" id="issue_date" required style="padding: 2%;"/>
+                            <input type="text" onfocus="ins_date()" name="issue_date" id="issue_date" required style="padding: 2%;"/>
                         </td>
                     </tr>
                     <tr>
@@ -168,11 +248,6 @@
                     </tr>
                 </table>
             </form>
-            <%
-                StringBuffer s=request.getRequestURL();
-                out.println(s.replace(s.lastIndexOf("/"),s.length() ,"hello"));
-//                request.getRequestURL().r
-            %>
         </div>
 
 

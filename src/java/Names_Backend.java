@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -68,7 +69,7 @@ public class Names_Backend extends HttpServlet {
                     rd.forward(request, response);
                 }
 
-            } catch (Exception ex) {
+            } catch (IOException | ClassNotFoundException | SQLException | ServletException ex) {
                 out.println("Exception Caught");
             }
             out.println("</body>");

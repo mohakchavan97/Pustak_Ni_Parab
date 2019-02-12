@@ -73,7 +73,7 @@
                         <th colspan="2"><hr></th>
                     </tr>
                     <tr>
-                        <th align="left">Full Name</th>
+                        <th align="left" style="font-size: large;">Full Name</th>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">First Name:</th>
@@ -91,7 +91,7 @@
                         <th colspan="2"><hr></th>
                     </tr>
                     <tr>
-                        <th align="left">Address</th>
+                        <th align="left" style="font-size: large;">Address</th>
                     </tr>
                     <tr>
                         <th align="right" style="margin-right: 2%;">Block/Flat No.:</th>
@@ -121,8 +121,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2" align="center" style="height: 40px">
+                        <td align="center" style="height: 40px">
                             <input type="submit" value="Submit" style="border-radius: 10px; font-weight: bold; padding: 2%; font-size: medium;"/>
+                        </td>
+                        <td align="center" style="height: 40px">
+                            <input type="button" value="View All" onclick="viewall()" style="border-radius: 10px; font-weight: bold; padding: 2%; font-size: medium;"/>
                         </td>
                     </tr>
                     <tr>

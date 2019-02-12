@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -119,7 +120,7 @@ public class Return_Backend extends HttpServlet {
                     rd_return.forward(request, response);
                 }
 
-            } catch (Exception ex) {
+            } catch (IOException | ClassNotFoundException | SQLException | ServletException ex) {
                 out.println("Exception Caught");
             }
 

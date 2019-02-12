@@ -104,6 +104,7 @@ public class Search_Book_Backend extends HttpServlet {
                 }
 
             } catch (ClassNotFoundException | SQLException ex) {
+                out.println("Exception Caught");
 //                Logger.getLogger(Search_Book_Backend.class.getName()).log(Level.SEVERE, null, ex);
             }
 

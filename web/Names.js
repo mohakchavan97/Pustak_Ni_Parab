@@ -20,3 +20,7 @@ function validation() {
     }
     return true;
 }
+
+function viewall(){
+    location.href="./Names_Backend_2";
+}

@@ -102,19 +102,19 @@ public class Issues_Backend extends HttpServlet {
                 boolean status = false;
 
                 if (stat == 3) {
-                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer _Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', '" + price + "', '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', '" + iss_cont + "', '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
+                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer_Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', '" + price + "', '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', '" + iss_cont + "', '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
                     status = true;
                 }
                 if (stat == 2) {
-                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer _Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', NULL, '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', '" + iss_cont + "', '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
+                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer_Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', NULL, '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', '" + iss_cont + "', '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
                     status = true;
                 }
                 if (stat == 1) {
-                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer _Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', '" + price + "', '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', NULL, '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
+                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer_Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', '" + price + "', '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', NULL, '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
                     status = true;
                 }
                 if (stat == 0) {
-                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer _Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', NULL, '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', NULL, '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
+                    sql = "INSERT INTO `issues` (`Book_Name`, `Price`, `Author/Publication`, `Issuer_Name`, `Issuer_Address`, `Issuer_Contact_Info`, `Issue_Date`, `time`, `Returned`) VALUES ('" + book_name + "', NULL, '" + auth_pub + "', '" + iss_name + "', '" + iss_add + "', NULL, '" + iss_date + "', CURRENT_TIMESTAMP, 'NO');";
                     status = true;
                 }
 
@@ -132,7 +132,7 @@ public class Issues_Backend extends HttpServlet {
                 out.println("Exception caught.");
                 out.println(ex.toString());
 
-            } catch (Exception e) {
+            } catch (IOException | NumberFormatException | ServletException e) {
                 out.println("Global Exception Caught");
                 out.println(e.toString());
             }
